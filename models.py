@@ -14,11 +14,11 @@ mask = (
     climateData['Population'].notna()
 )
 
-years = climateData['Year'].values[mask]
-co2 = climateData['CO2 emissions'].values[mask]
-temp = climateData['Temperature'].values[mask]
-rain = climateData['Rainfall'].values[mask]
-pop = climateData['Population'].values[mask]
+years = climateData['Year'].values[mask] # type: ignore
+co2 = climateData['CO2 emissions'].values[mask] # type: ignore
+temp = climateData['Temperature'].values[mask] # type: ignore
+rain = climateData['Rainfall'].values[mask] # type: ignore
+pop = climateData['Population'].values[mask] # type: ignore
 
 print(f"Data: {len(years)} years, {years.min()} to {years.max()}")
 
@@ -143,18 +143,6 @@ avg_co2 = np.mean(co2)
 print(f"\nAverage CO2: {avg_co2:.1f} M tons")
 print(f"Simple model error: {avg_error_simple/avg_co2*100:.1f}% of average")
 print(f"Full model error: {avg_error_full/avg_co2*100:.1f}% of average")
-
-# Residuals plot
-residuals = co2 - co2_pred_full
-plt.figure(figsize=(10, 4))
-plt.scatter(years, residuals, alpha=0.6)
-plt.axhline(y=0, color='red', linestyle='--')
-plt.xlabel('Year')
-plt.ylabel('Residuals (Actual - Predicted)')
-plt.title(f'Residuals from Full Model\nTotal LSE: {lse4:,.0f}')
-plt.grid(True, alpha=0.3)
-plt.savefig('saved_figures/residuals.png', dpi=150, bbox_inches='tight')
-plt.show()
 
 print("\n" + "="*60)
 print("CONCLUSIONS")
